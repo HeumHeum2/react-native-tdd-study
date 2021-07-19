@@ -13,7 +13,7 @@ jest.mock('../../components/WeatherCurrent', () =>
 );
 
 describe('HomeScreen', () => {
-  test('Should render correctly', () => {
+  test('화면 렌더링 되는지 확인', () => {
     const wrapper = render(<HomeScreen />);
     wrapper.getByTestId('home-screen');
   });
