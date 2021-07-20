@@ -41,20 +41,7 @@
     "typescript": "^3.8.3"
   },
   "resolutions": {
-    "@types/react": "^17"
-  },
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-native/extend-expect"
-    ]
+    "@types/react": "^17",
+    "react-native/@jest/create-cache-key-function": "^27.0.2"
   }
 }
