@@ -1,7 +1,7 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Controller, useForm} from 'react-hook-form';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput, Text} from 'react-native';
 import * as Yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Colors} from '../constants';
@@ -44,6 +44,9 @@ function WeatherCoordinates() {
           }}
           name="latitude"
         />
+        {form.formState.errors.latitude && (
+          <Text style={styles.error}>Latitude must be a valid number</Text>
+        )}
         <Controller
           control={form.control}
           render={({field}) => {
@@ -61,6 +64,9 @@ function WeatherCoordinates() {
           }}
           name="longitude"
         />
+        {form.formState.errors.longitude && (
+          <Text style={styles.error}>Longitude must be a valid number</Text>
+        )}
       </View>
       <Button onPress={handleSubmit} label="find" />
     </View>
@@ -73,8 +79,8 @@ const defaultValues: FormValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  latitude: Yup.number(),
-  longitude: Yup.number(),
+  latitude: Yup.number().min(-90).max(90),
+  longitude: Yup.number().min(-180).max(180),
 });
 
 const styles = StyleSheet.create({
@@ -91,6 +97,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 8,
     color: Colors.WHITE,
+  },
+  error: {
+    marginHorizontal: 5,
+    color: Colors.ERROR,
   },
 });
 
