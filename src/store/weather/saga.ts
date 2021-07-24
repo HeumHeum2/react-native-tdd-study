@@ -1,5 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import WeatherService from '../../services/WeatherService';
+import {WeatherType} from '../../types/Weather';
 import {
   Actions,
   fetchWeatherFailure,
@@ -13,7 +14,7 @@ export default function* saga() {
 
 export function* weatherStartWorker(action: WEATHER_START_TYPE) {
   try {
-    const weather = yield call(
+    const weather: WeatherType = yield call(
       WeatherService.fetchCurrentWeather,
       action.payload.latitude,
       action.payload.longitude,
