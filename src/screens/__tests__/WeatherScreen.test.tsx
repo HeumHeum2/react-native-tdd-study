@@ -95,4 +95,90 @@ describe('WeatherScreen', () => {
 
     wrapper.getByText('mock-description');
   });
+
+  test('Should not display description when given weather has no description', () => {
+    const store = mockStore();
+    const wrapper = render(<WeatherScreen />, {store});
+
+    act(() => {
+      store.dispatch(fetchWeatherSuccess(nullWeather));
+    });
+
+    expect(() => wrapper.getByTestId('weather-screen-description')).toThrow();
+  });
+
+  test('SHould display city name from given weather', () => {
+    const store = mockStore();
+    const wrapper = render(<WeatherScreen />, {store});
+
+    act(() => {
+      store.dispatch(fetchWeatherSuccess({...nullWeather, city: 'mock-city'}));
+    });
+
+    wrapper.getByText('mock-city');
+  });
+
+  test('Should display formated temperature', () => {
+    const store = mockStore();
+    const wrapper = render(<WeatherScreen />, {store});
+
+    act(() => {
+      store.dispatch(fetchWeatherSuccess({...nullWeather, temperature: 10.8}));
+    });
+
+    const container = wrapper.getByTestId('weather-screen-temperature');
+    const title = wrapper.getByText('temperature');
+    const temperature = wrapper.getByText('11˚C');
+
+    expect(container).toContainElement(title);
+    expect(container).toContainElement(temperature);
+  });
+
+  test('Should display formated humidity', () => {
+    const store = mockStore();
+    const wrapper = render(<WeatherScreen />, {store});
+
+    act(() => {
+      store.dispatch(fetchWeatherSuccess({...nullWeather, humidity: 50}));
+    });
+
+    const container = wrapper.getByTestId('weather-screen-humidity');
+    const title = wrapper.getByText('humidity');
+    const humidity = wrapper.getByText('50%');
+
+    expect(container).toContainElement(title);
+    expect(container).toContainElement(humidity);
+  });
+
+  test('Should display formated wind', () => {
+    const store = mockStore();
+    const wrapper = render(<WeatherScreen />, {store});
+
+    act(() => {
+      store.dispatch(fetchWeatherSuccess({...nullWeather, windSpeed: 3}));
+    });
+
+    const container = wrapper.getByTestId('weather-screen-wind');
+    const title = wrapper.getByText('wind');
+    const wind = wrapper.getByText('3m/s');
+
+    expect(container).toContainElement(title);
+    expect(container).toContainElement(wind);
+  });
+
+  test('Should display formated pressure', () => {
+    const store = mockStore();
+    const wrapper = render(<WeatherScreen />, {store});
+
+    act(() => {
+      store.dispatch(fetchWeatherSuccess({...nullWeather, pressure: 1000}));
+    });
+
+    const container = wrapper.getByTestId('weather-screen-pressure');
+    const title = wrapper.getByText('pressure');
+    const pressure = wrapper.getByText('1000 hPa');
+
+    expect(container).toContainElement(title);
+    expect(container).toContainElement(pressure);
+  });
 });

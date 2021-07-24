@@ -62,11 +62,39 @@ function WeatherScreen(props: Props) {
                 source={{uri: weather.icon}}
               />
             )}
-            <Text
-              testID="weather-screen-description"
-              style={styles.description}>
-              {weather.description}
-            </Text>
+            <Text style={styles.city}>{weather.city}</Text>
+            {weather.description && (
+              <Text
+                testID="weather-screen-description"
+                style={styles.description}>
+                {weather.description}
+              </Text>
+            )}
+          </View>
+          <View style={styles.stats}>
+            <Text style={styles.statsTitle}>Stats</Text>
+            <View
+              testID="weather-screen-temperature"
+              style={[styles.card, styles.cardNegative]}>
+              <Text style={styles.cardTextNegative}>temperature</Text>
+              <Text style={styles.cardTextNegative}>
+                {Math.round(weather.temperature)}˚C
+              </Text>
+            </View>
+            <View testID="weather-screen-wind" style={styles.card}>
+              <Text style={styles.cardText}>wind</Text>
+              <Text style={styles.cardText}>{weather.windSpeed}m/s</Text>
+            </View>
+            <View
+              testID="weather-screen-humidity"
+              style={[styles.card, styles.cardNegative]}>
+              <Text style={styles.cardTextNegative}>humidity</Text>
+              <Text style={styles.cardTextNegative}>{weather.humidity}%</Text>
+            </View>
+            <View testID="weather-screen-pressure" style={styles.card}>
+              <Text style={styles.cardText}>pressure</Text>
+              <Text style={styles.cardText}>{weather.pressure} hPa</Text>
+            </View>
           </View>
         </>
       )}
@@ -105,6 +133,32 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 24,
     textTransform: 'capitalize',
+  },
+  city: {
+    fontSize: 48,
+  },
+  stats: {
+    paddingHorizontal: '10%',
+  },
+  statsTitle: {
+    fontSize: 13,
+    color: Colors.LIGHTER_GRAY,
+    marginBottom: 10,
+  },
+  card: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 15,
+    borderRadius: 10,
+  },
+  cardNegative: {
+    backgroundColor: Colors.BLUE,
+  },
+  cardTextNegative: {
+    color: Colors.WHITE,
+  },
+  cardText: {
+    color: Colors.DARK_GRAY,
   },
 });
 
